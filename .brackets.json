@@ -1,0 +1,8 @@
+{
+  "jscodehints.detectedExclusions": [
+        "/Users/patrik.hartwig/Gits/mptuna/bower_components/",
+        "/Users/patrik.hartwig/Gits/mptuna/node_modules/",
+        "/Users/patrik.hartwig/Gits/mptuna/bower_components/jquery/src/css/swap.js",
+        "/Users/patrik.hartwig/Gits/mptuna/bower_components/jquery/src/css/var/cssExpand.js"
+    ]
+}

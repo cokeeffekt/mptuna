@@ -1,0 +1,24 @@
+{
+  "name": "client",
+  "version": "0.0.1",
+  "homepage": "",
+  "dependencies": {
+    "detectizr": "~2.0.0",
+    "hello": "~1.9.9",
+    "jquery": "~2.1.4",
+    "lodash": "~4.2.1",
+    "megaport.js": "megaport/megaport.js",
+    "metrics-graphics": "^2.8.0",
+    "modernizr": "2.7.1",
+    "peerjs": "~0.3.14",
+    "vue": "^1.0.22"
+  },
+  "overrides": {
+    "modernizr": {
+      "main": "modernizr.js"
+    },
+    "lodash": {
+      "main": "dist/lodash.js"
+    }
+  }
+}
