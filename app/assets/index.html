@@ -5,16 +5,21 @@
   <meta charset="UTF-8">
   <title>mpTuna</title>
   <link rel="stylesheet" href="/stylesheets/app.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
   <script src="/javascripts/app.js"></script>
   <script src="/javascripts/tpl.js"></script>
   <script src="/javascripts/vendor.js"></script>
+
   <script>
     var app = require('init');
   </script>
 </head>
 
 <body id="mpTuna">
-  <audio id="player" autoplay controls></audio>
+  <search></search>
+  <canvas id='canvas' width="800" height="350"></canvas>
+  <audio id="player" autoplay></audio>
+
 </body>
 
 </html>
