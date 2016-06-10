@@ -1,33 +1,15 @@
 <div id="morphsearch" class="morphsearch" :class="{open: isOpen}">
-  <form class="morphsearch-form">
-    <input class="morphsearch-input" type="search" placeholder="Search..." @click="isOpen = !isOpen" />
+  <form class="morphsearch-form" @submit.prevent>
+    <input class="morphsearch-input" type="search" placeholder="Search..." @click="isOpen = true" v-model="searching" debounce="500" />
     <button class="morphsearch-submit" type="submit">Search</button>
   </form>
   <div class="morphsearch-content">
     <div class="dummy-column">
-      <h2>Artists</h2>
-      <a class="dummy-media-object" href="#">
+      <h2>Results</h2>
+      <a class="dummy-media-object" href="#" v-for="song in showResults" transition="expand" stagger="100">
         <img src="https://placekitten.com/200/200" alt="TooltipStylesInspiration" />
-        <h3>Lorem ipsum dolor sit amet, </h3>
+        <h3>{{song.title}}</h3>
       </a>
-      <a class="dummy-media-object" href="#">
-        <img src="https://placekitten.com/200/200" alt="TooltipStylesInspiration" />
-        <h3>Lorem ipsum dolor sit amet, </h3>
-      </a>
-      <a class="dummy-media-object" href="#">
-        <img src="https://placekitten.com/200/200" alt="TooltipStylesInspiration" />
-        <h3>Lorem ipsum dolor sit amet, </h3>
-      </a>
-      <a class="dummy-media-object" href="#">
-        <img src="https://placekitten.com/200/200" alt="TooltipStylesInspiration" />
-        <h3>Lorem ipsum dolor sit amet, </h3>
-      </a>
-      <a class="dummy-media-object" href="#">
-        <img src="https://placekitten.com/200/200" alt="TooltipStylesInspiration" />
-        <h3>Lorem ipsum dolor sit amet, </h3>
-      </a>
-
-
     </div>
     <div class="dummy-column">
       <h2>Popular</h2>

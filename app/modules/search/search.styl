@@ -5,7 +5,7 @@
 .morphsearch
   width: 200px
   min-height: 40px
-  background: #f1f1f1
+  background: rgba(#f1f1f1, 0.5)
   position: absolute
   z-index: 10000
   top: 50px
@@ -125,16 +125,15 @@
   transform: rotate(-45deg)
 
 .morphsearch-content
-  color: #333
-  margin-top: 4.5em
-  width: 100%
-  height: 0
-  overflow: hidden
-  padding: 0 10.5%
-  background: #f1f1f1
-  position: absolute
-  pointer-events: none
-  opacity: 0
+  color #333
+  margin-top 4.5em
+  width 100%
+  height 0
+  overflow hidden
+  padding 0 10.5%
+  position absolute
+  pointer-events none
+  opacity 0
 
 .morphsearch.open .morphsearch-content
   opacity: 1
@@ -150,6 +149,8 @@
   opacity: 0
   transform: translateY(100px)
   transition: transform 0.5s, opacity 0.5s
+  max-height 60vh
+  overflow scroll
 
 .morphsearch.open .dummy-column:first-child
   transition-delay: 0.4s
@@ -179,34 +180,35 @@
   border-radius: 50%
 
 .dummy-media-object
-  padding: 0.75em
-  display: block
-  margin: 0.3em 0
-  cursor: pointer
-  border-radius: 5px
-  background: rgba(118,117,128,0.05)
+  padding 0.75em
+  display block
+  margin 0.3em 0
+  cursor pointer
+  border-radius 5px
+  color white
+  background rgba(white, 0.05)
 
   &:hover
   &:focus
-    background: rgba(118,117,128,0.1)
+    background rgba(118,117,128,0.1)
 
-.dummy-media-object img
-  display: inline-block
-  width: 50px
-  margin: 0 10px 0 0
-  vertical-align: middle
+  img
+    display inline-block
+    width 50px
+    margin 0 10px 0 0
+    vertical-align middle
 
-.dummy-media-object h3
-  vertical-align: middle
-  font-size: 0.85em
-  display: inline-block
-  font-weight: 700
-  margin: 0 0 0 0
-  width: calc(100% - 70px)
-  color: rgba(145,145,145,0.7)
+  h3
+    vertical-align middle
+    font-size 0.85em
+    display inline-block
+    font-weight 700
+    margin 0 0 0 0
+    width calc(100% - 70px)
+    color white
 
-.dummy-media-object:hover h3
-  color: #ec5a62
+    &:hover h3
+      color #ec5a62
 
 /* Overlay */
 .overlay
@@ -222,5 +224,14 @@
   transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1)
 
 .morphsearch.open ~ .overlay
-  opacity: 1
+  opacity 1
+
+
+.expand-transition
+  transition all .3s ease
+  opacity 1
+
+.expand-enter
+.expand-leave
+  opacity 0
 
