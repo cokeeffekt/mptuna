@@ -1,5 +1,10 @@
 module.exports = Vue.extend({
   template: require('modules/player/player.tpl'),
+  data: function () {
+    return {
+      odd: false
+    };
+  },
   ready: function () {
     this.connectToStream();
   },

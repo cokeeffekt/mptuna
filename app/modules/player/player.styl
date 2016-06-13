@@ -10,6 +10,49 @@
   width 100%
   height 100%
 
+  .fullbg
+    position absolute
+    overflow hidden
+    top 0
+    left 0
+    width 100%
+    height 100%
+
+    div
+      width 100%
+      height 100%
+
+      header
+        position absolute
+        width 100%
+        text-align center
+        color white
+        font-weight 100
+        bottom 50%
+
+        h1
+          font-size 4rem
+        h2
+          margin-top 1rem
+          opacity 0.6
+          font-size 2rem
+
+          small
+            font-size 1rem
+
+
+      &.change-transition
+        transition all 1s ease
+        transform scale(1)
+
+      &.change-enter
+        transform scale(0)
+        transform-origin 100% 0%
+      &.change-leave
+        transform scale(0)
+        transform-origin 0% 100%
+
+
   canvas
     width 100%
     height 50%

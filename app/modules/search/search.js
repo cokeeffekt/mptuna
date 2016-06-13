@@ -26,7 +26,8 @@ module.exports = Vue.extend({
       return _.chain(this.results).map(function (r) {
         return {
           title: r.name,
-          artists: _.map(r.artists, 'name')
+          artists: _.map(r.artists, 'name'),
+          ico: r.album.images[2].url
         };
       }).value();
     }
