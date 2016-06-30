@@ -60,32 +60,53 @@ Spotify.prototype.currentlyPlaying = function (cb) {
   if (!this.token || !this.csrf)
     return this.q('currentlyPlaying', cb);
 
-  this._request('/remote/status.json', cb);
+  this._request({
+    uri: '/remote/status.json',
+    cb: cb
+  });
 };
 
 Spotify.prototype.playNext = function (cb) {
   if (!this.token || !this.csrf)
     return this.q('playNext', cb);
 
-  var track = this.playlist.shift();
-  if (!track)
-    return;
+  var parent = this;
 
-  this._request('/remote/play.json', cb, {
-    play: track.id,
-    context: track.id
+  redis.zrange('tuna:playlist:main', 0, 1, function (err, next) {
+    if (err) throw err;
+    console.log('next', next);
+
+    next = next[0];
+    this._request({
+      uri: '/remote/play.json',
+      extra: {
+        play: next,
+        context: next
+      },
+      cb: function () {
+        parent.trigger('change-track');
+      }
+    });
+
+    // add/increment this track in popularity list
+    redis.zincrby('tuna:cache:played', 1, next);
   });
+
+
 };
 
 Spotify.prototype.addToPlaylist = function (trackId, user) {
   var parent = this;
 
-  // get current score then add to playlist
-  redis.get('tuna:cache:score', function (err, score) {
-    if (err) throw err;
+  this._getTrackData(trackId, function (track) {
+    // get current score then add to playlist
+    redis.get('tuna:cache:score', function (err, score) {
+      if (err) throw err;
 
-    redis.zadd('tuna:playlist:main', score, trackId);
-    parent.trigger('change-playlist');
+      redis.incr('tuna:cache:score');
+      redis.zadd('tuna:playlist:main', score, trackId);
+      parent.trigger('change-playlist');
+    });
   });
 };
 
@@ -110,16 +131,16 @@ Spotify.prototype._getTrackData = function (trackId, cb) {
   });
 };
 
-Spotify.prototype._request = function (uri, cb, args) {
+Spotify.prototype._request = function (args) {
   var params = {
     oauth: this.token,
     csrf: this.csrf
   };
 
-  if (typeof args === 'object')
-    params = Object.assign(params, args);
+  if (_.isObject(args.extra))
+    params = _.merge(params, args.extra);
 
-  var fullUri = 'https://client.spotilocal.com:4371' + uri + '?' + querystring.stringify(params);
+  var fullUri = 'https://client.spotilocal.com:4371' + args.uri + '?' + querystring.stringify(params);
 
   var options = {
     url: fullUri,
@@ -132,9 +153,8 @@ Spotify.prototype._request = function (uri, cb, args) {
     if (err) throw err;
     var b = JSON.parse(body);
 
-    console.log('also here', b);
-
-    cb(b);
+    if (_.isFunction(args.cb))
+      args.cb(b);
   });
 };
 

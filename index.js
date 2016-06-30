@@ -9,20 +9,10 @@ redis.on('error', function (err) {
 });
 
 // some init
-// set a base score for tracks and then increment as they're added
-redis.set('tuna:cache:score', 1000);
+redis.set('tuna:cache:score', 1000); // set a base score for tracks and then increment as they're added
+redis.del('tuna:playlist:main'); // trash any existing playlist
 
 var spotify = require('./server/spot.js');
-
-spotify.currentlyPlaying(function () {
-  console.log('iran');
-});
-spotify.addToPlaylist('1dB3Hsi3LfViWtqE8Sj8pr', function () {
-  console.log('boomticka');
-});
-spotify.playNext(function (trk) {
-  console.log(trk);
-});
 
 app.use(express.static('public'));
 
