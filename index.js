@@ -8,6 +8,13 @@ var spotify = require('./server/spot.js');
 spotify.currentlyPlaying(function () {
   console.log('iran');
 });
+spotify.addToPlaylist('1dB3Hsi3LfViWtqE8Sj8pr', function () {
+  console.log('boomticka');
+});
+spotify.playNext(function (trk) {
+  console.log(trk);
+});
+
 app.use(express.static('public'));
 
 io.on('connection', function (socket) {

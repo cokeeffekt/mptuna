@@ -31,6 +31,7 @@
     "request": "^2.72.0",
     "rupture": "0.6.1",
     "socket.io": "^1.4.8",
+    "spotify-web-api-node": "^2.3.0",
     "stylus-brunch": "^2.0.0",
     "uglify-js-brunch": "^2.0.1"
   },
