@@ -1,3 +1,4 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 var _ = require('lodash');
 var request = require('request');
 module.exports = new Spotify();
@@ -25,28 +26,29 @@ function Spotify() {
       spotScope.csrf = b.token;
       if (spotScope.pending.length > 1) {
         _.each(spotScope.pending, function (f) {
-          f();
+          spotScope[f[0]](f[1]);
         });
       }
-
-      console.log(this.token, this.csrf);
     });
   });
 
 }
 Spotify.prototype.q = function (func, cb) {
   console.log('pending');
-  this.pending.push(function () {
-    func(cb);
-  });
+  this.pending.push([func, cb]);
 };
 
 Spotify.prototype.currentlyPlaying = function (cb) {
   if (!this.token || !this.csrf)
-    return this.q(this.currentlyPlaying, cb);
+    return this.q('currentlyPlaying', cb);
 
+  // return
+  cb();
 };
 Spotify.prototype.addToPlaylist = function (cb) {
   if (!this.token || !this.csrf)
-    return this.q(this.addToPlaylist, cb);
+    return this.q('addToPlaylist', cb);
+
+  // return
+  cb();
 };

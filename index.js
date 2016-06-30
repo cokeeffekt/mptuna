@@ -6,8 +6,12 @@ var io = require('socket.io')(http);
 
 var spotify = require('./server/spot.js');
 
-spotify.currentlyPlaying();
-spotify.addToPlaylist();
+spotify.currentlyPlaying(function () {
+  console.log('iran');
+});
+spotify.addToPlaylist(function () {
+  console.log('boomticka');
+});
 
 app.use(express.static('public'));
 
