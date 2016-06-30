@@ -3,6 +3,12 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+
+var spotify = require('./server/spot.js');
+
+spotify.currentlyPlaying();
+spotify.addToPlaylist();
+
 app.use(express.static('public'));
 
 io.on('connection', function (socket) {
@@ -17,3 +23,5 @@ io.on('connection', function (socket) {
 http.listen(3000, function () {
   console.log('listening on *:3000');
 });
+
+console.log(':|');
