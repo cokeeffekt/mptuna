@@ -9,6 +9,7 @@ var peer = new Peer('megaport-tuna-server', {
 
 peer.on('connection', function (conn) {
   console.log('peer wants music!', conn);
+  $('#mpTuna-server').append('<h2> - ' + conn.peer + '</h2>');
   peer.call(conn.peer, window.localStream);
 });
 

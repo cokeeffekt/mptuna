@@ -20,14 +20,13 @@ module.exports = Vue.extend({
         // ping the server to give peerid, it will respond with music.
         var conn = peer.connect('megaport-tuna-server');
 
-        var player = $('#player').get(0);
+        var player = $('#audioPlayer').get(0);
         peer.on('call', function (call) {
           console.log('server is trying to give you music.');
           call.answer();
           call.on('stream', function (stream) {
             console.log('STREAMING!!!!');
             player.src = URL.createObjectURL(stream);
-
             var ctx = new AudioContext();
 
             var audioSrc = ctx.createMediaStreamSource(stream);
@@ -78,7 +77,7 @@ module.exports = Vue.extend({
               requestAnimationFrame(renderFrame);
             }
             renderFrame();
-            audio.play();
+            player.play();
 
           });
         });
