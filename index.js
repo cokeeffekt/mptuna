@@ -24,6 +24,8 @@ io.on('connection', function (socket) {
   });
 });
 
+spotify.on('playlist-change', function () {});
+
 http.listen(3000, function () {
   console.log('listening on *:3000');
 });

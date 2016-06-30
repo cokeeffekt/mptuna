@@ -10,12 +10,12 @@ var spotifyApi = new SpotifyWebApi();
 module.exports = new Spotify();
 
 function Spotify() {
-  console.log('bonk');
   var spotScope = this;
   this.playlist = [];
   this.pending = [];
   this.token = false;
   this.csrf = false;
+  this.events = {};
 
   request('http://open.spotify.com/token', function (err, resp, body) {
     if (err) throw err;
@@ -88,6 +88,7 @@ Spotify.prototype.addToPlaylist = function (trackId, user) {
           cover: track.album.images[0].url || ''
         }
       });
+      parent.trigger('change-playlist');
     });
 };
 
@@ -116,5 +117,19 @@ Spotify.prototype._request = function (uri, cb, args) {
     console.log('also here', b);
 
     cb(b);
+  });
+};
+
+Spotify.prototype.on = function (evnt, func) {
+  if (!_.isArray(this.events[evnt]))
+    this.events[evnt] = [];
+  this.events[evnt].push(func);
+};
+
+Spotify.prototype.trigger = function (evnt, args) {
+  var self = this;
+  if (!_.isArray(this.events[evnt])) return;
+  _.each(this.events[evnt], function (f) {
+    f.apply(self, args);
   });
 };

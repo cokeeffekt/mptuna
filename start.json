@@ -7,5 +7,8 @@
     "name": "server",
     "script": "index.js",
     "watch": ["index.js", "server/spot.js"]
+  }, {
+    "name": "redis",
+    "script": "redis-server"
   }]
 }
