@@ -21,3 +21,23 @@ var mpApp = new Vue({
 $(function () {
   mpApp.$mount('#mpTuna');
 });
+
+// SVG icons
+var svgLoad = (function (filePath) {
+  if (!$) return false;
+  var $map = $('<div style="display: none;"></div>');
+
+  function build() {
+    var data = localStorage.getItem('_svgLoad_data');
+    $(function () {
+      $map.html(data);
+      $(document.body).prepend($map);
+    });
+  }
+  $.get(filePath, function (data) {
+    localStorage.setItem('_svgLoad_data', data);
+    build();
+  }, 'html');
+  build();
+
+})('/icons/symbol-defs.svg');

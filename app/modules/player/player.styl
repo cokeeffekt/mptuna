@@ -18,7 +18,7 @@
     width 100%
     height 100%
 
-    div
+    >div
       width 100%
       height 100%
       background-position center
@@ -61,6 +61,43 @@
             font-size 1rem
             text-shadow 0px 0px 5px #000
 
+      footer
+        position absolute
+        width 100%
+        display flex
+        bottom 0
+        color white
+        align-items center
+        padding 1rem
+        background-color rgba(black, 0.3)
+
+        .track-nav
+          width 300px
+          height 100%
+          text-align left
+          .details
+            display flex
+            span
+              font-size 1.2rem
+              small
+                margin-top 0.5rem
+                display block
+
+          .album-art
+            height 50px
+            width 50px
+            background-color grey
+            margin 0 0.5rem
+
+          &.next
+            text-align right
+            margin-left auto
+            .details
+              justify-content flex-end
+      
+      &.play-queue
+        width 500px
+        background-color black
 
       &.change-transition
         transition all 1s ease
