@@ -7,6 +7,12 @@ var querystring = require('querystring');
 var SpotifyWebApi = require('spotify-web-api-node');
 var spotifyApi = new SpotifyWebApi();
 
+var redis = require('redis').createClient()
+
+redis.on('error', function (err) {
+  console.log('[REDIS:ERR] ' + err);
+});
+
 module.exports = new Spotify();
 
 function Spotify() {
@@ -74,22 +80,34 @@ Spotify.prototype.playNext = function (cb) {
 Spotify.prototype.addToPlaylist = function (trackId, user) {
   var parent = this;
 
-  spotifyApi.getTrack(trackId)
-    .done(function (data) {
-      var track = data.body;
+  // get current score then add to playlist
+  redis.get('tuna:cache:score', function (err, score) {
+    if (err) throw err;
 
-      parent.playlist.push({
-        id: trackId,
-        track: track.name,
-        artist: track.artists[0].name,
-        album: {
-          name: track.album.name,
-          uri: track.album.uri,
-          cover: track.album.images[0].url || ''
-        }
+    redis.zadd('tuna:playlist:main', score, trackId);
+    parent.trigger('change-playlist');
+  });
+};
+
+Spotify.prototype._getTrackData = function (trackId, cb) {
+  redis.hget('tuna:cache:tracks', trackId, function (err, track) {
+    // return if cache hit
+    if (_.isObject(track)) {
+      cb(track);
+      return;
+    }
+
+    // else if miss, go fetch
+    spotifyApi.getTrack(trackId)
+      .done(function (data) {
+        var track = data.body;
+
+        // cache for next time
+        redis.hset('tuna:cache:tracks', trackId, JSON.stringify(track));
+
+        cb(track);
       });
-      parent.trigger('change-playlist');
-    });
+  });
 };
 
 Spotify.prototype._request = function (uri, cb, args) {
