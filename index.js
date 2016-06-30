@@ -18,16 +18,17 @@ spotify.playNext(function (trk) {
 app.use(express.static('public'));
 
 io.on('connection', function (socket) {
-  console.log('a user connected');
+
   socket.on('add-to-playlist', function (trackId) {
     spotify.addToPlaylist(trackId);
   });
+
 });
 
-spotify.on('playlist-change', function () {});
+spotify.on('change-playlist', function () {
+  io.emit('play-list', this.playlist);
+});
 
 http.listen(3000, function () {
   console.log('listening on *:3000');
 });
-
-console.log(':|');
