@@ -2,7 +2,7 @@ module.exports = Vue.extend({
   template: require('modules/player/player.tpl'),
   data: function () {
     return {
-      odd: false
+      odd: false,
     };
   },
   ready: function () {
@@ -84,5 +84,6 @@ module.exports = Vue.extend({
         });
       });
     }
-  }
+  },
+
 });

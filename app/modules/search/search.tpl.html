@@ -6,7 +6,7 @@
   <div class="morphsearch-content">
     <div class="dummy-column">
       <h2>Results</h2>
-      <a class="dummy-media-object" href="#" v-for="song in showResults" transition="expand" stagger="100">
+      <a class="dummy-media-object" href="#" v-for="song in showResults" transition="expand" stagger="100" @click.prevent="addpl(song.id)">
         <img :src="song.ico" />
         <h3>{{song.title}}</h3>
       </a>

@@ -27,9 +27,15 @@ module.exports = Vue.extend({
         return {
           title: r.name,
           artists: _.map(r.artists, 'name'),
-          ico: r.album.images[2].url
+          ico: r.album.images[2].url,
+          id: r.id
         };
       }).value();
+    }
+  },
+  methods: {
+    addpl: function (trackId) {
+      this.$dispatch('add-to-playlist', trackId);
     }
   }
 });
