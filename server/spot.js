@@ -85,14 +85,13 @@ Spotify.prototype.playNext = function (cb) {
       },
       cb: function () {
         parent.trigger('change-track');
+        parent.trigger('change-playlist');
       }
     });
 
     // add/increment this track in popularity list
     redis.zincrby('tuna:cache:played', 1, next);
   });
-
-
 };
 
 Spotify.prototype.addToPlaylist = function (trackId, user) {
@@ -107,6 +106,20 @@ Spotify.prototype.addToPlaylist = function (trackId, user) {
       redis.zadd('tuna:playlist:main', score, trackId);
       parent.trigger('change-playlist');
     });
+  });
+};
+
+Spotify.prototype.voteTrack = function (trackId) {
+  var parent = this;
+
+  redis.zscore('tuna:playlist:main', trackId, function (err, res) {
+    if (err) throw err;
+
+    if (res) {
+      redis.zincrby('tuna:playlist:main', -10, trackId, function () {
+        parent.trigger('change-playlist');
+      });
+    }
   });
 };
 
