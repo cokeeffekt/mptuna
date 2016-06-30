@@ -6,6 +6,6 @@
   }, {
     "name": "server",
     "script": "index.js",
-    "watch": ["index.js"]
+    "watch": ["index.js", "server/spot.js"]
   }]
 }
