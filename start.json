@@ -1,0 +1,11 @@
+{
+  "apps": [{
+    "name": "www-build",
+    "script": "./node_modules/.bin/brunch",
+    "args": ["watch", "--server"]
+  }, {
+    "name": "server",
+    "script": "index.js",
+    "watch": ["index.js"]
+  }]
+}

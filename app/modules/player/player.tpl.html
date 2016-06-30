@@ -1,6 +1,6 @@
 <div id="player">
   <div class="fullbg" @click="odd = !odd">
-    <div v-if="odd" transition="change">
+    <div v-if="odd" transition="change" style="background-image: url(https://i.scdn.co/image/c7265744ca45109884237f501a052d978330e5de)">
       <header>
         <h1>The song that is playing</h1>
         <h2>Arist is <small>requested by lorem</small></h2>
@@ -8,7 +8,7 @@
     </div>
   </div>
   <div class="fullbg" @click="odd = !odd">
-    <div v-if="!odd" transition="change">
+    <div v-if="!odd" transition="change" style="background-image: url(https://i.scdn.co/image/c7265744ca45109884237f501a052d978330e5de)">
       <header>
         <h1>The song that is playing</h1>
         <h2>Arist is <small>requested by lorem</small></h2>
@@ -17,5 +17,4 @@
   </div>
   <canvas id='canvas' width="800" height="350"></canvas>
   <audio id="player" autoplay></audio>
-
 </div>
