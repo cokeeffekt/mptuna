@@ -25,6 +25,21 @@
       background-repeat no-repeat
       background-size cover
 
+      &:before
+        content " "
+        margin 0
+        padding 0
+        position fixed
+        left 0
+        top 0
+        width calc(100%)
+        height calc(100%)
+        background-image url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADAQMAAABs5if8AAAAA3NCSVQICAjb4U/gAAAABlBMVEUAAAD///+l2Z/dAAAAAnRSTlP/AOW3MEoAAAAJcEhZcwAACusAAArrAYKLDVoAAAAWdEVYdENyZWF0aW9uIFRpbWUAMjUvMDQvMTHvvlk6AAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M1cbXjNgAAAA5JREFUCJljSGB4wPAAAAVmAiGdUf+vAAAAAElFTkSuQmCC")
+        transition all .4s linear
+        z-index -1
+        opacity .8
+        background-color: rgba(0,0,0,0.5);
+
       header
         position absolute
         width 100%
