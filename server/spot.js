@@ -23,6 +23,8 @@ function Spotify() {
   this.csrf = false;
   this.events = {};
 
+  this.state = {};
+
   request('http://open.spotify.com/token', function (err, resp, body) {
     if (err) throw err;
     var b = JSON.parse(body);
@@ -62,7 +64,10 @@ Spotify.prototype.currentlyPlaying = function (cb) {
 
   this._request({
     uri: '/remote/status.json',
-    cb: cb
+    cb: function (res) {
+      this.state = res;
+      cb(res);
+    }
   });
 };
 
@@ -86,6 +91,8 @@ Spotify.prototype.playNext = function (cb) {
       cb: function () {
         parent.trigger('change-track');
         parent.trigger('change-playlist');
+
+        this.currentlyPlaying();
       }
     });
 
