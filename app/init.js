@@ -2,7 +2,8 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext || window
 
 var mpApp = new Vue({
   data: {
-    playlist: []
+    playlist: [],
+    showplaylist: false
   },
   components: {
     search: require('modules/search/search'),

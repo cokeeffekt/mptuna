@@ -3,13 +3,14 @@
 @import './app/settings'
 
 #playlist
-  width 400px
   height 100%
   background-color black
   transition 500ms
-  display flex
+  overflow hidden
   &.hide
-    width 0
+    max-width 0
+  .track-line
+    width 350px
 
 #main-wrap
   display flex

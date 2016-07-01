@@ -16,10 +16,13 @@
 </head>
 
 <body id="mpTuna">
+
   <div id="main-wrap">
     <search :playlist="playlist"></search>
+
     <player :playlist="playlist"></player>
-    <playlist-panel :playlist="playlist"></playlist-panel>
+    <playlist-panel :playlist="playlist" :class="{ 'hide': !showplaylist }"></playlist-panel>
+
   </div>
 
 </body>

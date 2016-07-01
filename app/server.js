@@ -1,8 +1,6 @@
 console.log('Server Init');
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
-
-
 var peer = new Peer('megaport-tuna-server', {
   key: 'rx1g1udef1ypsyvi'
 });
