@@ -116,6 +116,31 @@ Spotify.prototype.addToPlaylist = function (trackId, user) {
   });
 };
 
+Spotify.prototype.getPlaylist = function (cb) {
+  var parent = this;
+
+  redis.zrange('tuna:playlist:main', 0, 100, function (err, reply) {
+    if (err) throw err;
+
+    var playlist = [];
+    _.each(reply, function (v) {
+      redis.hget('tuna:cache:tracks', v, function (err, track) {
+        playlist.push({
+          name: track.name,
+          artist: track.artists[0].name,
+          album: {
+            name: track.album.name,
+            uri: track.album.uri,
+            cover: track.album.images[0].url || ''
+          }
+        });
+      });
+    });
+
+    cb(playlist);
+  });
+};
+
 Spotify.prototype.voteTrack = function (trackId) {
   var parent = this;
 
