@@ -5,6 +5,7 @@ var mpApp = new Vue({
   components: {
     search: require('modules/search/search'),
     player: require('modules/player/player'),
+    playlistPanel: require('modules/playlist/playlist'),
     socket: false
   },
   created: function () {
