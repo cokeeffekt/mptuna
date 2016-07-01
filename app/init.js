@@ -8,7 +8,12 @@ var mpApp = new Vue({
     socket: false
   },
   created: function () {
+    var $cope = this;
     this.socket = io();
+
+    this.socket.on('play-list', function (playlist) {
+      $cope.$broadcast('play-list', playlist);
+    });
   },
   events: {
     'add-to-playlist': function (trackId) {
