@@ -78,7 +78,7 @@ Spotify.prototype.playNext = function (cb) {
   var parent = this;
 
   redis.zrange('tuna:playlist:main', 0, 1, function (err, next) {
-    if (err) throw err;
+    if (err) return console.error(err);
     console.log('next', next);
 
     next = next[0];
@@ -107,7 +107,7 @@ Spotify.prototype.addToPlaylist = function (trackId, user) {
   this._getTrackData(trackId, function (track) {
     // get current score then add to playlist
     redis.get('tuna:cache:score', function (err, score) {
-      if (err) throw err;
+      if (err) return console.error(err);
 
       redis.incr('tuna:cache:score');
       redis.zadd('tuna:playlist:main', score, trackId);
@@ -120,7 +120,7 @@ Spotify.prototype.voteTrack = function (trackId) {
   var parent = this;
 
   redis.zscore('tuna:playlist:main', trackId, function (err, res) {
-    if (err) throw err;
+    if (err) return console.error(err);
 
     if (res) {
       redis.zincrby('tuna:playlist:main', -10, trackId, function () {

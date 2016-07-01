@@ -17,7 +17,7 @@ var mpApp = new Vue({
   },
   events: {
     'add-to-playlist': function (trackId) {
-      console.log('telling servier to add track', trackId);
+      console.log('telling server to add track', trackId);
       this.socket.emit('add-to-playlist', trackId);
     }
   }
