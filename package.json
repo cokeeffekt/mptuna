@@ -28,6 +28,7 @@
     "javascript-brunch": "^2.0.0",
     "jshint-brunch": "1.8.x",
     "lodash": "^4.13.1",
+    "raven": "^0.11.0",
     "redis": "^2.6.2",
     "request": "^2.72.0",
     "rupture": "0.6.1",
