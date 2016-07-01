@@ -9,7 +9,7 @@ var raven = new Raven.Client('https://8d572f37caab454fa22928fec1397311:8fb9e14b2
 raven.patchGlobal();
 
 redis.on('error', function (err) {
-  console.log('[REDIS:ERR] ' + err);
+  console.error('[REDIS:ERR] ' + err);
 });
 
 // some init
@@ -21,15 +21,15 @@ var spotify = require('./server/spot.js');
 app.use(express.static('public'));
 
 io.on('connection', function (socket) {
-
   socket.on('add-to-playlist', function (trackId) {
     spotify.addToPlaylist(trackId);
   });
-
 });
 
 spotify.on('change-playlist', function () {
-  io.emit('play-list', this.playlist);
+  this.getPlaylist(function (playlist) {
+    io.emit('play-list', playlist);
+  });
 });
 
 http.listen(3000, function () {

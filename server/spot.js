@@ -123,21 +123,24 @@ Spotify.prototype.getPlaylist = function (cb) {
     if (err) throw err;
 
     var playlist = [];
-    _.each(reply, function (v) {
-      redis.hget('tuna:cache:tracks', v, function (err, track) {
-        playlist.push({
+    console.log(reply);
+    redis.hmget('tuna:cache:tracks', reply, function (err, tracks) {
+      if (err) return console.error(err);
+      var playlist = _.map(tracks, function (track) {
+        track = JSON.parse(track);
+        return {
           name: track.name,
           artist: track.artists[0].name,
           album: {
             name: track.album.name,
             uri: track.album.uri,
             cover: track.album.images[0].url || ''
-          }
-        });
+          },
+          trackId: track.id
+        };
       });
+      cb(playlist);
     });
-
-    cb(playlist);
   });
 };
 

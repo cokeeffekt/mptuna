@@ -91,7 +91,7 @@ module.exports = Vue.extend({
       _.each(playlist, function (s, i) {
         s.order = i;
         var ex = _.find($cope.playlist, {
-          id: s.id
+          trackId: s.id
         });
         if (!ex)
           return $cope.playlist.push(s);
