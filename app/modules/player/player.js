@@ -1,9 +1,9 @@
 module.exports = Vue.extend({
+  props: ['playlist'],
   template: require('modules/player/player.tpl'),
   data: function () {
     return {
       odd: false,
-      playlist: []
     };
   },
   ready: function () {
@@ -82,20 +82,6 @@ module.exports = Vue.extend({
 
           });
         });
-      });
-    }
-  },
-  events: {
-    'play-list': function (playlist) {
-      var $cope = this;
-      _.each(playlist, function (s, i) {
-        s.order = i;
-        var ex = _.find($cope.playlist, {
-          trackId: s.id
-        });
-        if (!ex)
-          return $cope.playlist.push(s);
-        _.merge(ex, s);
       });
     }
   }

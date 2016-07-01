@@ -1,4 +1,5 @@
 module.exports = Vue.extend({
+  props: ['playlist'],
   template: require('modules/search/search.tpl'),
   data: function () {
     return {

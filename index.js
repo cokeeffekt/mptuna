@@ -24,6 +24,9 @@ io.on('connection', function (socket) {
   socket.on('add-to-playlist', function (trackId) {
     spotify.addToPlaylist(trackId);
   });
+  spotify.getPlaylist(function (playlist) {
+    socket.emit('play-list', playlist);
+  });
 });
 
 spotify.on('change-playlist', function () {

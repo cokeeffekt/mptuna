@@ -1,7 +1,9 @@
 window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
 
 var mpApp = new Vue({
-  data: {},
+  data: {
+    playlist: []
+  },
   components: {
     search: require('modules/search/search'),
     player: require('modules/player/player'),
@@ -13,15 +15,28 @@ var mpApp = new Vue({
     this.socket = io();
 
     this.socket.on('play-list', function (playlist) {
-      $cope.$broadcast('play-list', playlist);
+      $cope.$emit('play-list', playlist);
     });
   },
   events: {
     'add-to-playlist': function (trackId) {
       console.log('telling server to add track', trackId);
       this.socket.emit('add-to-playlist', trackId);
+    },
+    'play-list': function (playlist) {
+      var $cope = this;
+      _.each(playlist, function (s, i) {
+        s.order = i;
+        var ex = _.find($cope.playlist, {
+          trackId: s.id
+        });
+        if (!ex)
+          return $cope.playlist.push(s);
+        _.merge(ex, s);
+      });
     }
   }
+
 });
 
 $(function () {

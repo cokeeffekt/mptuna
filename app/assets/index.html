@@ -17,9 +17,9 @@
 
 <body id="mpTuna">
   <div id="main-wrap">
-    <search></search>
-    <player></player>
-    <playlist-panel></playlist-panel>
+    <search :playlist="playlist"></search>
+    <player :playlist="playlist"></player>
+    <playlist-panel :playlist="playlist"></playlist-panel>
   </div>
 
 </body>
